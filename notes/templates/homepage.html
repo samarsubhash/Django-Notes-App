@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>QuickNotes</title>
+</head>
+
+<body class="bg-gradient-to-br from-zinc-900 via-black to-zinc-800 min-h-screen text-white overflow-x-hidden">
+
+    <!-- Background Glow -->
+    <div class="absolute top-0 left-0 w-72 h-72 bg-purple-500 rounded-full blur-3xl opacity-20"></div>
+    <div class="absolute bottom-0 right-0 w-72 h-72 bg-pink-500 rounded-full blur-3xl opacity-20"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto p-6">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-10">
+
+            <div>
+                <h1 class="text-5xl font-bold tracking-tight">
+                    QuickNotes
+                </h1>
+
+                <p class="text-zinc-400 mt-2">
+                    Clean. Simple. Beautiful notes for your thoughts.
+                </p>
+            </div>
+
+            <a href="/add/">
+                <button class="bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 rounded-2xl hover:bg-white/20 transition duration-300 shadow-xl">
+                    + Add Note
+                </button>
+            </a>
+
+        </div>
+
+        <!-- Notes -->
+        <div class="grid gap-6">
+
+            {% for note in notes %}
+
+            <div class="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-2xl hover:scale-[1.02] transition duration-300">
+
+                <!-- Title -->
+                <h2 class="text-2xl font-semibold mb-1">
+                    {{ note.title }}
+                </h2>
+
+                <!-- Created At -->
+                <p class="text-sm text-zinc-400 mb-4">
+                    {{ note.created_at|date:"M d, Y • h:i A" }}
+                </p>
+
+                <!-- Content -->
+                <p class="text-zinc-300 leading-relaxed">
+                    {{ note.content }}
+                </p>
+
+                <!-- Buttons -->
+                <div class="flex gap-3 mt-6">
+
+                    <a href="{% url 'update_note' note.id %}">
+                        <button class="bg-blue-500/20 border border-blue-400/30 px-5 py-2 rounded-xl hover:bg-blue-500/30 transition duration-300">
+                             Update
+                        </button>
+                    </a>
+
+                    <a href="{% url 'delete_note' note.id %}">
+                        <button class="bg-red-500/20 border border-red-400/30 px-5 py-2 rounded-xl hover:bg-red-500/30 transition duration-300">
+                            Delete
+                        </button>
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <!-- Empty State -->
+            <div class="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-10 text-center shadow-2xl">
+
+                <h2 class="text-2xl font-semibold mb-3">
+                    No Notes Yet
+                </h2>
+
+                <p class="text-zinc-400 mb-6">
+                    Start writing your first beautiful note.
+                </p>
+
+                <a href="/add/">
+                    <button class="bg-white/10 border border-white/20 px-6 py-3 rounded-2xl hover:bg-white/20 transition duration-300">
+                        + Create Note
+                    </button>
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+</html> 

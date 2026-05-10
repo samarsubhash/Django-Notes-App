@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Note</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-zinc-900 via-black to-zinc-800 min-h-screen flex items-center justify-center text-white overflow-hidden">
+
+    <!-- Background Blur -->
+    <div class="absolute top-0 left-0 w-72 h-72 bg-purple-500 rounded-full blur-3xl opacity-20"></div>
+    <div class="absolute bottom-0 right-0 w-72 h-72 bg-pink-500 rounded-full blur-3xl opacity-20"></div>
+
+    <!-- Glass Card -->
+    <div class="relative z-10 w-full max-w-lg bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+
+        <h1 class="text-4xl font-bold mb-2">
+             Add Note
+        </h1>
+
+        <p class="text-zinc-300 mb-8">
+            Capture your thoughts beautifully.
+        </p>
+
+        <form method="POST" class="space-y-6">
+
+            {% csrf_token %}
+
+            <!-- Title -->
+            <div>
+                <label class="block mb-2 text-zinc-200">
+                    Title
+                </label>
+
+                <input 
+                    type="text"
+                    name="title"
+                    placeholder="Enter note title..."
+                    class="w-full bg-white/10 border border-white/20 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-purple-400 placeholder:text-zinc-400"
+                >
+            </div>
+
+            <!-- Content -->
+            <div>
+                <label class="block mb-2 text-zinc-200">
+                    Content
+                </label>
+
+                <textarea 
+                    name="content"
+                    rows="6"
+                    placeholder="Write your note here..."
+                    class="w-full bg-white/10 border border-white/20 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-pink-400 placeholder:text-zinc-400 resize-none"
+                ></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+
+                <button 
+                    type="submit"
+                    class="flex-1 bg-white/10 border border-white/20 py-3 rounded-2xl hover:bg-white/20 transition duration-300 font-semibold shadow-lg"
+                >
+                     Save Note
+                </button>
+
+                <a href="/" class="flex-1">
+                    <button 
+                        type="button"
+                        class="w-full bg-red-500/20 border border-red-400/30 py-3 rounded-2xl hover:bg-red-500/30 transition duration-300 font-semibold"
+                    >
+                        Cancel
+                    </button>
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
