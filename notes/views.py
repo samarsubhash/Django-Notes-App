@@ -1,5 +1,7 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from . models import Notedb
 # Create your views here.
 
@@ -35,3 +37,45 @@ def update_note(request,id):
     return redirect("/")
   
   return render(request,'updatenote.html',{"note":note})
+
+def signup_view(request):
+
+  if request.method == 'POST' :
+
+    username = request.POST['username']
+    password = request.POST['password']
+    email = request.POST['email']
+
+    User.objects.create_user(
+        username = username,
+        password = password,
+        email = email
+    )
+
+    return redirect('login')
+  
+  return render(request,'signup.html')
+
+def login_view(request):
+  
+  if request.method == 'POST':
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(
+      request,
+      username = username,
+      password = password
+    )
+    print(user)
+
+    if user is not None :
+      login(request,user)
+      return redirect('home')
+    
+  return render(request ,'login.html')
+
+def logout_view(request):
+  logout(request)
+
+  return redirect('login')
